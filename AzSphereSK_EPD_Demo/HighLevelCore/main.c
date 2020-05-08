@@ -144,6 +144,11 @@ int main(void)
     EPD_Display_Image_2in9(spiFd, BlackImage);
     delay_ms(1800);
 
+
+    // Image 2 : Technervers Logo 
+    EPD_Display_Image_2in9(spiFd, TechNerversLogo_2in9);
+    delay_ms(1800);
+
     //Initialiazing the Display in Partial Mode TEST 1
     EPD_Init_2in9(spiFd, WaveShare_2in9_EPD_PART);
 
@@ -368,9 +373,9 @@ int main(void)
     EPD_Init_2in9(spiFd, WaveShare_2in9_EPD_FULL);
     EPD_Clear_2in9(spiFd);
 
-    // Image 2 My Logo 
+    // Image 3 Project QR
 
-    EPD_Display_Image_2in9(spiFd, TechNerversLogo_2in9);
+    EPD_Display_Image_2in9(spiFd, TechNerversLogo_2in9_2);
     delay_ms(1800);
 
     Log_Debug("Image update process Compleated, Freeing the Memory \n");

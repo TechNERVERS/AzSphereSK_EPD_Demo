@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\AzSphereSK_EPD_Demo",
+    "\\AzSphereSK_EPD_Demo\\EPD",
+    "\\AzSphereSK_EPD_Demo\\HighLevelCore",
     "\\AzSphereSK_EPD_Demo\\Tools"
   ],
-  "SelectedNode": "\\AzSphereSK_EPD_Demo\\HighLevelCore",
+  "SelectedNode": "\\AzSphereSK_EPD_Demo\\HighLevelCore\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

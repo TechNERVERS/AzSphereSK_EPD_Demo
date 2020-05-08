@@ -54,6 +54,7 @@
 
 extern const unsigned char TechNerversLogo_2in9[]; //4736
 extern const unsigned char WaveShareLogo_2in9[]; //4736
+extern const unsigned char TechNerversLogo_2in9_2[4736];
 extern const unsigned char gImage_4in2[];
 extern const unsigned char gImage_4in2_4Gray[];
 extern const unsigned char gImage_4in2_4Gray1[];
