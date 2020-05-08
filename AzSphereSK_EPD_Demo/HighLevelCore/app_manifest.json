@@ -1,0 +1,13 @@
+﻿{
+  "SchemaVersion": 1,
+  "Name": "AzSphereSK_EPD_Demo_HighLevelCore",
+  "ComponentId": "e356032d-f878-473b-add3-fd927afc26ab",
+  "EntryPoint": "/bin/app",
+  "CmdArgs": [],
+  "Capabilities": {
+    "Gpio": [ "$AVNET_MT3620_SK_GPIO2", "$AVNET_MT3620_SK_GPIO0", "$AVNET_MT3620_SK_GPIO1", "$AVNET_MT3620_SK_GPIO16", "$AVNET_MT3620_SK_GPIO17", "$AVNET_MT3620_SK_USER_LED_BLUE" ],
+    "SpiMaster": [ "$AVNET_MT3620_SK_ISU0_SPI", "$AVNET_MT3620_SK_ISU1_SPI" ],
+    "AllowedApplicationConnections": [ "3fa703f0-bd12-4306-b9d7-682f148e8ce5" ]
+  },
+  "ApplicationType": "Default"
+}

@@ -1,0 +1,11 @@
+﻿{
+  "SchemaVersion": 1,
+  "Name": "AzSphereSK_EPD_Demo_RealTimeCore",
+  "ComponentId": "98e512c6-f46f-4548-8501-a0fdaec9cd8a",
+  "EntryPoint": "/bin/app",
+  "CmdArgs": [],
+  "Capabilities": {
+    "AllowedApplicationConnections": [ "e356032d-f878-473b-add3-fd927afc26ab" ]
+  },
+  "ApplicationType": "RealTimeCapable"
+}
