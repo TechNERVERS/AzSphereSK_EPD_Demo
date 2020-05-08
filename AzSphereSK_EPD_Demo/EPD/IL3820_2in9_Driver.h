@@ -6,9 +6,14 @@
 *					Demo @YouTube Link : 
 * | Info        :   ~2s Refresh time with Default LUT's
 *----------------
-* |	This version:   V0.4dbg
-* | Date        :   2020-05-04
+* |	This version:   V1.2
+* | Date        :   2020-05-08
 * | Info        :
+* -----------------------------------------------------------------------------
+* Change Log V1.2 (2020-05-08):
+* 1. Added : GFx lib ( provided as Paint lib by Waveshare ) 
+*		   : Font 8,12, 16, 20, 24 Support added (Will add bigger fonts later 
+* 2. WIP   : Added a QR Code Generation Library, But will have to modify it and write an interface for the display to handel it  
 * -----------------------------------------------------------------------------
 * Change Log V0.4dbg (2020-05-04):
 * 1. Added : Support for Waveshare/ Good Display 2.9" Bi-Colour EPD pannels with Display driver IL3820

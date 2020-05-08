@@ -5,8 +5,8 @@
 * | Info        :   View the Demo on youtube 
 *                   Link : 
 *----------------
-* |	This version:   V0.4dbg
-* | Date        :   2020-05-04
+* |	This version:   V1.0
+* | Date        :   2020-05-08
 * | Info        :   -   -   -
 * -----------------------------------------------------------------------------
 * Change Log V0.4dbg (2020-05-04):
@@ -15,6 +15,7 @@
 * 2. Support for 128x296 Image Works, with the standard (orignal) LUT Provided by Waveshare
 * 3. Both Standard and Partial Mode works
 * 4. EPD Clear function can be called to avoid permanent damage if not using Sleep Mode. 
+* 5. Waveshare's Gui Paint included as GFX Lib 
 *-------------------------------------------------------------------------------
 *
 *  INFO : Please check Readme to understand how to include this library in your project and test. 

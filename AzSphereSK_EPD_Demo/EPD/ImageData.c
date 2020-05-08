@@ -10,9 +10,12 @@
 *					Alternate :	https://www.electronoobs.com/images/Arduino/tut_57/image2LCD.zip
 *
 *----------------
-* |	This version:   V0.4dbg
-* | Date        :   2020-05-04
+* |	This version:   V1.0
+* | Date        :   2020-05-08
 * | Info        :
+* -----------------------------------------------------------------------------
+* Change Log V1.0 (2020-05-08):
+* 1. Added : Animation Frames of 200x125 of a Horse running (Total of 13 images and each image is ~3KB making a total of 39KB for the animation
 * -----------------------------------------------------------------------------
 * Change Log V0.4dbg (2020-05-04):
 * 1. Added : TechNERVERS and Waveshare Logos for 2.9" EPS in b/w bi-colour format (you need to convert this to 8 bit format before sending this to EPD check reference main.c code 

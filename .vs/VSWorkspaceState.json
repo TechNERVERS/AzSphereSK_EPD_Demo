@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AzSphereSK_EPD_Demo",
+    "\\AzSphereSK_EPD_Demo\\Tools"
   ],
-  "SelectedNode": "\\Global settings (C:\\Users\\gur-i\\AppData\\Local\\Microsoft\\VisualStudio\\16.0_070619f1\\OpenFolder)",
+  "SelectedNode": "\\AzSphereSK_EPD_Demo\\HighLevelCore",
   "PreviewInSolutionExplorer": false
 }

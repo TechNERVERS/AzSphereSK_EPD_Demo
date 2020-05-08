@@ -7,6 +7,7 @@
 * | Info        :
 *   Achieve display characters: Display a single character, string, number
 *   Achieve time display: adaptive size display time minutes and seconds
+*   Modified this lib for use with AzSphere Modules/ SKs by GS Gill (gsgill.github.io) 
 *----------------
 * |	This version:   V3.0
 * | Date        :   2019-04-18

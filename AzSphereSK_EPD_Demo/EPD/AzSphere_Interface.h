@@ -6,9 +6,13 @@
 * | Info        :   This file is specific to AzSphere Device line
 * | NOTE        :   There is No Need to modify this interface lib to change EPD parameters.
 *----------------
-* |	This version:   V0.4dbg
-* | Date        :   2020-05-04
+* |	This version:   V1.0
+* | Date        :   2020-05-08
 * | Info        :
+* -----------------------------------------------------------------------------
+* Change Log V1.0 (2020-05-08):
+* 1. Fixed : Reset Bug 
+* 2. Deep Sleep Mode Mow Works. 
 * -----------------------------------------------------------------------------
 * Change Log V0.4dbg (2020-05-04):
 * 1. Added : Support for Waveshare/ Good Display 2.9" Bi-Colour EPD pannels with Display driver IL3820
