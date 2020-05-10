@@ -1,3 +1,4 @@
+// Author : ricmoo (https://github.com/ricmoo/QRCode)
 /**
  * The MIT License (MIT)
  *
@@ -22,17 +23,18 @@
  * THE SOFTWARE.
  */
 
-/**
+/*
  *  Special thanks to Nayuki (https://www.nayuki.io/) from which this library was
  *  heavily inspired and compared against.
  *
  *  See: https://github.com/nayuki/QR-Code-generator/tree/master/cpp
  */
 
-#include "qrcode.h"
 
 #include <stdlib.h>
 #include <string.h>
+
+#include "qrcode.h"
 
 #pragma mark - Error Correction Lookup tables
 
@@ -119,7 +121,7 @@ static int8_t getAlphanumeric(char c) {
     return -1;
 }
 
-static bool isAlphanumeric(const char *text, uint16_t length) {
+static booll isAlphanumeric(const char *text, uint16_t length) {
     while (length != 0) {
         if (getAlphanumeric(text[--length]) == -1) { return false; }
     }
@@ -127,7 +129,7 @@ static bool isAlphanumeric(const char *text, uint16_t length) {
 }
 
 
-static bool isNumeric(const char *text, uint16_t length) {
+static booll isNumeric(const char *text, uint16_t length) {
     while (length != 0) {
         char c = text[--length];
         if (c < '0' || c > '9') { return false; }
@@ -220,7 +222,7 @@ void bb_setBits(BitBucket *bitBuffer, uint32_t val, int offset, uint8_t length) 
     }
 }
 */
-static void bb_setBit(BitBucket *bitGrid, uint8_t x, uint8_t y, bool on) {
+static void bb_setBit(BitBucket *bitGrid, uint8_t x, uint8_t y, booll on) {
     uint32_t offset = y * bitGrid->bitOffsetOrWidth + x;
     uint8_t mask = 1 << (7 - (offset & 0x07));
     if (on) {
@@ -230,10 +232,10 @@ static void bb_setBit(BitBucket *bitGrid, uint8_t x, uint8_t y, bool on) {
     }
 }
 
-static void bb_invertBit(BitBucket *bitGrid, uint8_t x, uint8_t y, bool invert) {
+static void bb_invertBit(BitBucket *bitGrid, uint8_t x, uint8_t y, booll invert) {
     uint32_t offset = y * bitGrid->bitOffsetOrWidth + x;
     uint8_t mask = 1 << (7 - (offset & 0x07));
-    bool on = ((bitGrid->data[offset >> 3] & (1 << (7 - (offset & 0x07)))) != 0);
+    booll on = ((bitGrid->data[offset >> 3] & (1 << (7 - (offset & 0x07)))) != 0);
     if (on ^ invert) {
         bitGrid->data[offset >> 3] |= mask;
     } else {
@@ -241,7 +243,7 @@ static void bb_invertBit(BitBucket *bitGrid, uint8_t x, uint8_t y, bool invert) 
     }
 }
 
-static bool bb_getBit(BitBucket *bitGrid, uint8_t x, uint8_t y) {
+static booll bb_getBit(BitBucket *bitGrid, uint8_t x, uint8_t y) {
     uint32_t offset = y * bitGrid->bitOffsetOrWidth + x;
     return (bitGrid->data[offset >> 3] & (1 << (7 - (offset & 0x07)))) != 0;
 }
@@ -260,7 +262,7 @@ static void applyMask(BitBucket *modules, BitBucket *isFunction, uint8_t mask) {
         for (uint8_t x = 0; x < size; x++) {
             if (bb_getBit(isFunction, x, y)) { continue; }
             
-            bool invert = 0;
+            booll invert = 0;
             switch (mask) {
                 case 0:  invert = (x + y) % 2 == 0;                    break;
                 case 1:  invert = y % 2 == 0;                          break;
@@ -276,7 +278,7 @@ static void applyMask(BitBucket *modules, BitBucket *isFunction, uint8_t mask) {
     }
 }
 
-static void setFunctionModule(BitBucket *modules, BitBucket *isFunction, uint8_t x, uint8_t y, bool on) {
+static void setFunctionModule(BitBucket *modules, BitBucket *isFunction, uint8_t x, uint8_t y, booll on) {
     bb_setBit(modules, x, y, on);
     bb_setBit(isFunction, x, y, true);
 }
@@ -369,7 +371,7 @@ static void drawVersion(BitBucket *modules, BitBucket *isFunction, uint8_t versi
     
     // Draw two copies
     for (uint8_t i = 0; i < 18; i++) {
-        bool bit = ((data >> i) & 1) != 0;
+        booll bit = ((data >> i) & 1) != 0;
         uint8_t a = size - 11 + i % 3, b = i / 3;
         setFunctionModule(modules, isFunction, a, b, bit);
         setFunctionModule(modules, isFunction, b, a, bit);
@@ -455,7 +457,7 @@ static void drawCodewords(BitBucket *modules, BitBucket *isFunction, BitBucket *
         for (uint8_t vert = 0; vert < size; vert++) {  // Vertical counter
             for (int j = 0; j < 2; j++) {
                 uint8_t x = right - j;  // Actual x coordinate
-                bool upwards = ((right & 2) == 0) ^ (x < 6);
+                booll upwards = ((right & 2) == 0) ^ (x < 6);
                 uint8_t y = upwards ? size - 1 - vert : vert;  // Actual y coordinate
                 if (!bb_getBit(isFunction, x, y) && i < bitLength) {
                     bb_setBit(modules, x, y, ((data[i >> 3] >> (7 - (i & 7))) & 1) != 0);
@@ -488,9 +490,9 @@ static uint32_t getPenaltyScore(BitBucket *modules) {
     // Adjacent modules in row having same color
     for (uint8_t y = 0; y < size; y++) {
         
-        bool colorX = bb_getBit(modules, 0, y);
+        booll colorX = bb_getBit(modules, 0, y);
         for (uint8_t x = 1, runX = 1; x < size; x++) {
-            bool cx = bb_getBit(modules, x, y);
+            booll cx = bb_getBit(modules, x, y);
             if (cx != colorX) {
                 colorX = cx;
                 runX = 1;
@@ -508,9 +510,9 @@ static uint32_t getPenaltyScore(BitBucket *modules) {
     
     // Adjacent modules in column having same color
     for (uint8_t x = 0; x < size; x++) {
-        bool colorY = bb_getBit(modules, x, 0);
+        booll colorY = bb_getBit(modules, x, 0);
         for (uint8_t y = 1, runY = 1; y < size; y++) {
-            bool cy = bb_getBit(modules, x, y);
+            booll cy = bb_getBit(modules, x, y);
             if (cy != colorY) {
                 colorY = cy;
                 runY = 1;
@@ -529,13 +531,13 @@ static uint32_t getPenaltyScore(BitBucket *modules) {
     for (uint8_t y = 0; y < size; y++) {
         uint16_t bitsRow = 0, bitsCol = 0;
         for (uint8_t x = 0; x < size; x++) {
-            bool color = bb_getBit(modules, x, y);
+            booll color = bb_getBit(modules, x, y);
 
             // 2*2 blocks of modules having same color
             if (x > 0 && y > 0) {
-                bool colorUL = bb_getBit(modules, x - 1, y - 1);
-                bool colorUR = bb_getBit(modules, x, y - 1);
-                bool colorL = bb_getBit(modules, x - 1, y);
+                booll colorUL = bb_getBit(modules, x - 1, y - 1);
+                booll colorUR = bb_getBit(modules, x, y - 1);
+                booll colorL = bb_getBit(modules, x - 1, y);
                 if (color == colorUL && color == colorUR && color == colorL) {
                     result += PENALTY_N2;
                 }
@@ -852,7 +854,7 @@ int8_t qrcode_initText(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8_
     return qrcode_initBytes(qrcode, modules, version, ecc, (uint8_t*)data, strlen(data));
 }
 
-bool qrcode_getModule(QRCode *qrcode, uint8_t x, uint8_t y) {
+booll qrcode_getModule(QRCode *qrcode, uint8_t x, uint8_t y) {
     if (x < 0 || x >= qrcode->size || y < 0 || y >= qrcode->size) {
         return false;
     }

@@ -1,3 +1,4 @@
+// Author : ricmoo (https://github.com/ricmoo/QRCode)
 /**
  * The MIT License (MIT)
  *
@@ -34,9 +35,10 @@
 #define __QRCODE_H_
 
 #ifndef __cplusplus
-typedef unsigned char bool;
-static const bool false = 0;
-static const bool true = 1;
+typedef unsigned char booll;
+#define false 0
+#define true 1
+//static const booll true = 1;
 #endif
 
 #include <stdint.h>
@@ -70,6 +72,7 @@ typedef struct QRCode {
     uint8_t mask;
     uint8_t *modules;
 } QRCode;
+extern QRCode qrcode;
 
 
 #ifdef __cplusplus
@@ -83,7 +86,7 @@ uint16_t qrcode_getBufferSize(uint8_t version);
 int8_t qrcode_initText(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8_t ecc, const char *data);
 int8_t qrcode_initBytes(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8_t ecc, uint8_t *data, uint16_t length);
 
-bool qrcode_getModule(QRCode *qrcode, uint8_t x, uint8_t y);
+booll qrcode_getModule(QRCode *qrcode, uint8_t x, uint8_t y);
 
 
 

@@ -53,12 +53,21 @@
 #include "../Tools/Fonts/fonts.h"
 #include "../EPD/ImageData.h"
 #include "../Tools/GFX/Gfx.h"
-//#include "../Tools/QRcode/qrcode.h"
+#include "../Tools/QRcode/qrcode.h"
 
+// Defines which all demos would be exicuted
+#define QR_DEMO
+#define IMAGE_DEMO
+#define GFX_DEMO
+#define PART_ANIME_DEMO
+#define PART_TIME_DEMO
 
 // Spi File Discripter that will be used universally accross the Lib 
 // (Ideally set it to -1 during inititialiazation in main())
 int spiFd;
+int qr_symble_size;
+static char* myGithub = "http://gsgill112.github.io/";
+QRCode qrcode;
 
 // Main Function 
 int main(void)
@@ -92,6 +101,7 @@ int main(void)
     EPD_Clear_2in9(spiFd);
     delay_ms(1800);
 
+#ifdef GFX_DEMO
     // GFX Example
     Paint_SelectImage(BlackImage);
     Paint_Clear(WHITE);
@@ -124,7 +134,46 @@ int main(void)
 
     EPD_Display_Image_2in9(spiFd, BlackImage);
     delay_ms(1800);
+#endif 
 
+#ifdef QR_DEMO
+    
+    //generating QR Code
+    // Will store the generated qr_code in : uint8_t generated_qr_Code[];
+    uint8_t generated_qr_Code[qrcode_getBufferSize(3)];
+    qrcode_initText(&qrcode, generated_qr_Code, 3, 0, myGithub);
+
+    uint8_t vspacing = 0;
+    uint8_t hspacing = 0;
+    const uint8_t PixelSize = 4;
+    const uint8_t xStart = 10;
+    const uint8_t yStart = 5;
+
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(WHITE);
+    for (uint8_t y = 0; y < qrcode.size; y++) {
+        // Each horizontal module
+        for (uint8_t x = 0; x < qrcode.size; x++) {
+
+            // Print each module (UTF-8 \u2588 is a solid block)
+            // Serial.print(qrcode_getModule(&qrcode, x, y) ? "\u2588\u2588" : "  ");
+            if (qrcode_getModule(&qrcode, x, y)) {
+                Paint_DrawPoint(xStart + hspacing, yStart + vspacing, BLACK, DOT_PIXEL_4X4, DOT_STYLE_DFT);
+            }
+            else {
+                Paint_DrawPoint(xStart + hspacing, yStart + vspacing, WHITE, DOT_PIXEL_4X4, DOT_STYLE_DFT);
+            }
+            hspacing += PixelSize;
+}
+        hspacing = 0;
+        vspacing += PixelSize;
+    }
+    Paint_DrawString_EN(EPD_2in9_HEIGHT / 2 - 10, 50, "QR DEMO", &Font24, WHITE, BLACK);
+    EPD_Display_Image_2in9(spiFd, BlackImage);
+    delay_ms(1800);
+#endif
+
+#ifdef IMAGE_DEMO
     uint16_t  x, y;
     uint32_t Addr = 0;
     
@@ -148,10 +197,12 @@ int main(void)
     // Image 2 : Technervers Logo 
     EPD_Display_Image_2in9(spiFd, TechNerversLogo_2in9);
     delay_ms(1800);
+#endif 
 
     //Initialiazing the Display in Partial Mode TEST 1
     EPD_Init_2in9(spiFd, WaveShare_2in9_EPD_PART);
 
+#ifdef PART_TIME_DEMO
     // Clearing the Display 
     // It seems that BUSY Pin is quite unpredictible and is confusing as the WaveShare Datasheet states it to be active Low 
     // and the WaveShare example Codes defines as active High ?? EPD_Clear or DisplayImage Functions may brake due to inadequate 
@@ -192,7 +243,8 @@ int main(void)
         delay_ms(500);//Analog clock 500ms
         Log_Debug("Partial Refresh\n");
     }
-    
+#endif
+#ifdef PART_ANIME_DEMO
     //clearing the display 
     Paint_ClearWindows(0, 0, EPD_2in9_HEIGHT, EPD_2in9_WIDTH, WHITE);
     
@@ -369,12 +421,12 @@ int main(void)
     }
     EPD_Display_Image_2in9(spiFd, BlackImage);
     //delay_ms(50);
+#endif 
 
     EPD_Init_2in9(spiFd, WaveShare_2in9_EPD_FULL);
     EPD_Clear_2in9(spiFd);
 
     // Image 3 Project QR
-
     EPD_Display_Image_2in9(spiFd, TechNerversLogo_2in9_2);
     delay_ms(1800);
 
@@ -382,8 +434,7 @@ int main(void)
     free(BlackImage);
 
     // Gets the EPD in Sleep Mode 
-    // I have to check this but apparently on calling the Wake function the EPD Does Not Wake ? ? 
-    // So do we have to re Init the EPD ??, but the Sleep works as expected. 
+    //Fixed Waking up od EPD 
     EPD_Sleep_2in9(spiFd);
 
     while (true) {

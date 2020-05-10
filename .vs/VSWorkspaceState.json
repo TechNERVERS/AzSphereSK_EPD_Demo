@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\AzSphereSK_EPD_Demo",
-    "\\AzSphereSK_EPD_Demo\\EPD",
     "\\AzSphereSK_EPD_Demo\\HighLevelCore",
-    "\\AzSphereSK_EPD_Demo\\Tools"
+    "\\AzSphereSK_EPD_Demo\\Tools",
+    "\\AzSphereSK_EPD_Demo\\Tools\\GFX",
+    "\\AzSphereSK_EPD_Demo\\Tools\\QRcode"
   ],
-  "SelectedNode": "\\AzSphereSK_EPD_Demo\\HighLevelCore\\CMakeLists.txt",
+  "SelectedNode": "\\AzSphereSK_EPD_Demo\\Tools\\QRcode\\qrcode.c",
   "PreviewInSolutionExplorer": false
 }
